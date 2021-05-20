@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MessagesHandler : MonoBehaviour
 {
     public AvatarLoader avatarLoader;
+    public MessageRemover remover;
 
     [Header("UI")]
     public Transform messagesParent;
@@ -25,7 +26,7 @@ public class MessagesHandler : MonoBehaviour
         lastSender = "";
         for (int i = 0; i < data.Count; i++)
         {
-            SpawnNewMessage(data[i], playerId);
+            SpawnMessage(data[i], playerId);
         }
 
         UpdateChatUI();
@@ -35,7 +36,7 @@ public class MessagesHandler : MonoBehaviour
 
     private ChatMessage SpawnSecondaryMessage(MessageData data, string playerId) => Instantiate(playerId == data.sender ? secondaryMessagePlayerPrefab : secondaryMessagePrefab, messagesParent);
 
-    public void SpawnNewMessage(MessageData data, string playerId)
+    public void SpawnMessage(MessageData data, string playerId)
     {
         ChatMessage message;
         if (lastSender != data.sender)
@@ -47,16 +48,26 @@ public class MessagesHandler : MonoBehaviour
             message = SpawnSecondaryMessage(data, playerId);
         }
 
-        message.Setup(data, avatarLoader);
+        message.Setup(new ChatItemData(data, remover, avatarLoader, playerId));
         messages.Add(message);
 
         lastSender = data.sender;
     }
 
+    public void SpawnNewMessage(MessageData data, string playerId)
+    {
+        SpawnMessage(data, playerId);
+
+        UpdateChatUI();
+    }
+
     private void UpdateChatUI()
     {
-        verticalLayout.enabled = false;
-        verticalLayout.enabled = true;
-        Canvas.ForceUpdateCanvases();
+        verticalLayout.CalculateLayoutInputVertical();
+        verticalLayout.SetLayoutVertical();
+        //LayoutRebuilder.ForceRebuildLayoutImmediate(messagesParent as RectTransform);
+        //verticalLayout.enabled = false;
+        //verticalLayout.enabled = true;
+        //Canvas.ForceUpdateCanvases();
     }
 }
