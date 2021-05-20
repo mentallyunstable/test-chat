@@ -10,9 +10,9 @@ public class MainMessage : ChatMessage
     public Image avatarImage;
     public TextMeshProUGUI nameText;
 
-    protected override void OnSetup(MessageData data)
+    protected override void OnSetup()
     {
-        avatarImage.sprite = avatarLoader.GetAvatar(data.sender);
-        nameText.text = data.sender;
+        avatarImage.sprite = avatarLoader.GetAvatar(Data.sender);
+        nameText.text = Data.sender;
     }
 }

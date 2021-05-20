@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SecondaryMessage : ChatMessage
 {
-    protected override void OnSetup(MessageData data)
+    protected override void OnSetup()
     {
 
     }

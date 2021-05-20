@@ -595,6 +595,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 2354382975886433966}
   dateText: {fileID: 90245742407049515}
+  deleteButton: {fileID: 0}
   avatarImage: {fileID: 2354382975251340323}
   nameText: {fileID: 2354382975307040825}
 --- !u!1 &2354382975886433965

@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 8908526230623617150}
   - component: {fileID: 1249837340924991600}
   - component: {fileID: 4344749710782257470}
-  - component: {fileID: 7637109090689350069}
+  - component: {fileID: 4254311605590470162}
+  - component: {fileID: -8226226413213922222}
+  - component: {fileID: 2966125763943661820}
   m_Layer: 5
   m_Name: ChatMessageSecondary Player
   m_TagString: Untagged
@@ -80,7 +82,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 1
---- !u!114 &7637109090689350069
+--- !u!114 &4254311605590470162
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,6 +97,37 @@ MonoBehaviour:
   messageText: {fileID: 4761596358822535842}
   dateText: {fileID: 7203642263806729511}
   deleteButton: {fileID: 5912000175854418807}
+--- !u!95 &-8226226413213922222
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806801072344907562}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9ff1179d27517c548b11bfc9e4be6dcb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &2966125763943661820
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806801072344907562}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1573112568404789246
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +248,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7637109090689350069}
+      - m_Target: {fileID: 4254311605590470162}
         m_TargetAssemblyTypeName: ChatMessage, Assembly-CSharp
         m_MethodName: ChangeRemoveState
         m_Mode: 1
@@ -461,8 +494,8 @@ MonoBehaviour:
     m_Left: 48
     m_Right: 38
     m_Top: 35
-    m_Bottom: 40
-  m_ChildAlignment: 2
+    m_Bottom: 10
+  m_ChildAlignment: 5
   m_Spacing: 14
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -505,10 +538,10 @@ RectTransform:
   m_Father: {fileID: 4761596359823184034}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -19.299988, y: 25.9}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 659.47, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3394708949905326459
 CanvasRenderer:
@@ -619,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreLayout: 1
+  m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1

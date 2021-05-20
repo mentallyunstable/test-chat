@@ -16,7 +16,7 @@ public class MessageSender : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(input.text))
         {
-            MessageData data = new MessageData(chatController.playerId, input.text, DateTime.Now.ToString("T"));
+            MessageData data = new MessageData(chatController.playerId, input.text, DateTime.Now.ToString("T"), true);
 
             chatController.AddMessage(data);
 

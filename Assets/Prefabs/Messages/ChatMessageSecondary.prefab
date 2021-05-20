@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6013979009380925195}
   - component: {fileID: 4146921437212862213}
   - component: {fileID: 1485947858312259147}
-  - component: {fileID: -4528099895299684672}
+  - component: {fileID: 6738897526048779452}
   m_Layer: 5
   m_Name: ChatMessageSecondary
   m_TagString: Untagged
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &-4528099895299684672
+--- !u!114 &6738897526048779452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 7692172124889619927}
   dateText: {fileID: 5416978346370982482}
+  deleteButton: {fileID: 0}
 --- !u!1 &5450855433614541711
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,7 +299,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 541.14655, y: 0}
   m_SizeDelta: {x: 692.2931, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8346618766125030492

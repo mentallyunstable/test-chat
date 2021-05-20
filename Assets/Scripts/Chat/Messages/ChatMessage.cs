@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public abstract class ChatMessage : MonoBehaviour
 {
+    private const string showTrigger = "show";
+
     readonly Color deleteButtonActiveColor = new Color(255, 255, 255, 1);
     readonly Color deleteButtonDisabledColor = new Color(255, 255, 255, 0.5f);
 
@@ -14,27 +16,52 @@ public abstract class ChatMessage : MonoBehaviour
     public TextMeshProUGUI dateText;
     public Image deleteButton;
 
+    public MessageData Data { get; private set; }
+
     protected AvatarLoader avatarLoader;
 
     private MessageRemover remover;
+    private Animator animator;
     private bool selectedForRemove;
 
-    protected abstract void OnSetup(MessageData data);
+    protected abstract void OnSetup();
 
     public void Setup(ChatItemData data)
     {
+        Data = data.messageData;
         avatarLoader = data.avatarLoader;
         remover = data.remover;
 
-        messageText.text = data.messageData.message;
-        dateText.text = data.messageData.date;
+        messageText.text = Data.message;
+        dateText.text = Data.date;
 
-        if (data.messageData.sender == data.playerId)
+        animator = GetComponent<Animator>();
+
+        if (Data.animate)
         {
-            data.remover.OnMessageDeleteInitiated += Remover_OnMessageDeleteInitiated;
+            animator.SetTrigger(showTrigger);
         }
 
-        OnSetup(data.messageData);
+        if (Data.sender == data.playerId)
+        {
+            Subscribe();
+        }
+
+        OnSetup();
+    }
+
+    private void Subscribe()
+    {
+        remover.OnMessageDeleteInitiated += Remover_OnMessageDeleteInitiated;
+        remover.OnMessageDeleteAccepted += Remover_OnMessageDeleteAccepted;
+    }
+
+    public void DestroyMessage()
+    {
+        remover.OnMessageDeleteInitiated -= Remover_OnMessageDeleteInitiated;
+        remover.OnMessageDeleteAccepted -= Remover_OnMessageDeleteAccepted;
+
+        Destroy(gameObject);
     }
 
     private void Remover_OnMessageDeleteInitiated()
@@ -47,20 +74,35 @@ public abstract class ChatMessage : MonoBehaviour
         deleteButton.gameObject.SetActive(true);
     }
 
+    private void DisableDeleteButton()
+    {
+        deleteButton.gameObject.SetActive(false);
+    }
+
     public void ChangeRemoveState()
     {
         selectedForRemove = !selectedForRemove;
 
         if (selectedForRemove)
         {
-            remover.AddToRemoveList(this);
+            remover.AddToList(this);
         }
         else
         {
-            remover.RemoveFromRemoveList(this);
+            remover.RemoveFromList(this);
         }
 
         ChangeDeleteButtonState();
+    }
+
+    private void Remover_OnMessageDeleteAccepted(List<ChatMessage> messages)
+    {
+        if (!messages.Contains(this))
+        {
+            selectedForRemove = false;
+            ChangeDeleteButtonState();
+            DisableDeleteButton();
+        }
     }
 
     private void ChangeDeleteButtonState()

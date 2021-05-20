@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,8 +19,64 @@ public class MessagesHandler : MonoBehaviour
     public ChatMessage mainMessagePlayerPrefab;
     public ChatMessage secondaryMessagePlayerPrefab;
 
-    private readonly List<ChatMessage> messages = new List<ChatMessage>();
+    public List<ChatMessage> messages = new List<ChatMessage>();
+    private int lastMainMessageIndex;
     private string lastSender;
+    private bool waitForUpdate;
+
+    private void Awake()
+    {
+        remover.OnMessageDeleteAccepted += Remover_OnMessageDeleteAccepted;
+    }
+
+    private void Update()
+    {
+        if (waitForUpdate)
+        {
+            verticalLayout.enabled = true;
+            verticalLayout.CalculateLayoutInputVertical();
+            verticalLayout.SetLayoutVertical();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(messagesParent as RectTransform);
+            Canvas.ForceUpdateCanvases();
+
+            waitForUpdate = false;
+        }
+    }
+
+    private void Remover_OnMessageDeleteAccepted(List<ChatMessage> removedMessages)
+    {
+        for (int i = 0; i < removedMessages.Count; i++)
+        {
+            removedMessages[i].DestroyMessage();
+            if (removedMessages[i] is MainMessage)
+            {
+                int mainIndex = messages.IndexOf(removedMessages[i]);
+                if (mainIndex + 1 < messages.Count)
+                {
+                    ChatMessage nextMessage = messages[mainIndex + 1];
+
+                    if (nextMessage.Data.sender == removedMessages[i].Data.sender)
+                    {
+                        ChatMessage newMainMessage = InstantiateMainMessage(nextMessage.Data, nextMessage.Data.sender);
+                        MessageData newData = nextMessage.Data;
+                        newData.animate = false;
+                        newMainMessage.Setup(new ChatItemData(newData, remover, avatarLoader, newData.sender));
+                        newMainMessage.transform.SetSiblingIndex(nextMessage.transform.GetSiblingIndex());
+                        messages.Insert(nextMessage.transform.GetSiblingIndex(), newMainMessage);
+
+                        nextMessage.DestroyMessage();
+
+                        messages.Remove(nextMessage);
+                    }
+                }
+            }
+            messages.Remove(removedMessages[i]);
+        }
+
+        lastSender = messages[messages.Count - 1].Data.sender;
+
+        UpdateChatUI();
+    }
 
     public void SpawnMessages(List<MessageData> data, string playerId)
     {
@@ -29,29 +86,31 @@ public class MessagesHandler : MonoBehaviour
             SpawnMessage(data[i], playerId);
         }
 
+
         UpdateChatUI();
     }
+    private ChatMessage InstantiateMainMessage(MessageData data, string playerId) => Instantiate(playerId == data.sender ? mainMessagePlayerPrefab : mainMessagePrefab, messagesParent);
 
-    private ChatMessage SpawnMainMessage(MessageData data, string playerId) => Instantiate(playerId == data.sender ? mainMessagePlayerPrefab : mainMessagePrefab, messagesParent);
+    private ChatMessage InstantiateSecondaryMessage(MessageData data, string playerId) => Instantiate(playerId == data.sender ? secondaryMessagePlayerPrefab : secondaryMessagePrefab, messagesParent);
 
-    private ChatMessage SpawnSecondaryMessage(MessageData data, string playerId) => Instantiate(playerId == data.sender ? secondaryMessagePlayerPrefab : secondaryMessagePrefab, messagesParent);
-
-    public void SpawnMessage(MessageData data, string playerId)
+    public ChatMessage SpawnMessage(MessageData data, string playerId)
     {
         ChatMessage message;
-        if (lastSender != data.sender)
+
+        if (IsMainMessage(data.sender))
         {
-            message = SpawnMainMessage(data, playerId);
+            message = InstantiateMainMessage(data, playerId);
         }
         else
         {
-            message = SpawnSecondaryMessage(data, playerId);
+            message = InstantiateSecondaryMessage(data, playerId);
         }
-
         message.Setup(new ChatItemData(data, remover, avatarLoader, playerId));
         messages.Add(message);
 
         lastSender = data.sender;
+
+        return message;
     }
 
     public void SpawnNewMessage(MessageData data, string playerId)
@@ -65,9 +124,12 @@ public class MessagesHandler : MonoBehaviour
     {
         verticalLayout.CalculateLayoutInputVertical();
         verticalLayout.SetLayoutVertical();
-        //LayoutRebuilder.ForceRebuildLayoutImmediate(messagesParent as RectTransform);
-        //verticalLayout.enabled = false;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(messagesParent as RectTransform);
+        verticalLayout.enabled = false;
+        waitForUpdate = true;
         //verticalLayout.enabled = true;
         //Canvas.ForceUpdateCanvases();
     }
+
+    private bool IsMainMessage(string sender) => lastSender != sender;
 }
