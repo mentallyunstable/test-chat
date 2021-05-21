@@ -513,6 +513,8 @@ GameObject:
   - component: {fileID: 8037961121437341115}
   - component: {fileID: 1295120754654928316}
   - component: {fileID: 6902733797163252935}
+  - component: {fileID: -3082153449672186504}
+  - component: {fileID: -8465040759663490135}
   m_Layer: 5
   m_Name: ChatMessageMain
   m_TagString: Untagged
@@ -595,9 +597,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 2354382975886433966}
   dateText: {fileID: 90245742407049515}
-  deleteButton: {fileID: 0}
+  removeButton: {fileID: 0}
   avatarImage: {fileID: 2354382975251340323}
   nameText: {fileID: 2354382975307040825}
+--- !u!95 &-3082153449672186504
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2354382975789790648}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a12345f7ab5c5804dbf8dcce3b228480, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &-8465040759663490135
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2354382975789790648}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2354382975886433965
 GameObject:
   m_ObjectHideFlags: 0

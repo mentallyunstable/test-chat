@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 4761596358822535842}
   dateText: {fileID: 7203642263806729511}
-  deleteButton: {fileID: 5912000175854418807}
+  removeButton: {fileID: 5912000175854418807}
 --- !u!95 &-8226226413213922222
 Animator:
   serializedVersion: 3
@@ -107,7 +107,7 @@ Animator:
   m_GameObject: {fileID: 806801072344907562}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9ff1179d27517c548b11bfc9e4be6dcb, type: 2}
+  m_Controller: {fileID: 9100000, guid: a12345f7ab5c5804dbf8dcce3b228480, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 5912000175854418807}
   - component: {fileID: 4541529328516269549}
   m_Layer: 5
-  m_Name: ButtonDelete
+  m_Name: ButtonRemove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
