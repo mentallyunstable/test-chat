@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4146921437212862213}
   - component: {fileID: 1485947858312259147}
   - component: {fileID: 6738897526048779452}
+  - component: {fileID: 1456225975009144633}
+  - component: {fileID: 9049140030584666885}
   m_Layer: 5
   m_Name: ChatMessageSecondary
   m_TagString: Untagged
@@ -93,7 +95,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 7692172124889619927}
   dateText: {fileID: 5416978346370982482}
-  deleteButton: {fileID: 0}
+  removeButton: {fileID: 0}
+--- !u!95 &1456225975009144633
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586990533823529055}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a12345f7ab5c5804dbf8dcce3b228480, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &9049140030584666885
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586990533823529055}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5450855433614541711
 GameObject:
   m_ObjectHideFlags: 0
